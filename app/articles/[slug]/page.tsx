@@ -7,6 +7,7 @@ import PostHeader from '@/components/Post-Header'
 import PostBody from '@/components/Post-Body'
 import SectionSeparator from '@/components/Section-Separator'
 import MoreStories from '@/components/More-Stories'
+import Header from '@/components/Header'
 import StoryblokClient from 'storyblok-js-client'
 import { notFound } from 'next/navigation'
 
@@ -33,13 +34,16 @@ export default async function Post({ params }: { params: { slug: string } }) {
   }
 
   const morePosts = data.morePosts
-  
+
   return (
     <Layout>
       <Container>
+
+        <Header />
+
         <article>
-          
-        <PostHeader
+
+          <PostHeader
             title={post.content.headline}
             coverImage={post.content.image}
             date={post.first_published_at || post.published_at}
@@ -60,7 +64,7 @@ export async function generateStaticParams() {
 
   const allPosts = await getAllPostsWithSlug()
 
-  return allPosts?.map((post : any) => ({
+  return allPosts?.map((post: any) => ({
     slug: `${post.slug}`,
   }))
 
